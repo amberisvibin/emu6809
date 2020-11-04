@@ -74,6 +74,11 @@ mod tests {
     use super::*;
 
     #[test]
+    fn new() {
+        let cpu = CPU::new();
+        assert_eq!(cpu.program_counter, 0x0000);
+    }
+    #[test]
     fn set_pc() {
         let mut cpu = CPU::new();
         cpu.program_counter = 0xFFFF;
