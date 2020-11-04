@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["amber <amberisvibin@gmail.com>"]
 edition = "2018"
 description = "A cycle-accurate emulator for the Motorola 6809."
+readme = "readme.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
