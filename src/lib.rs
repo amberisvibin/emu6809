@@ -65,7 +65,22 @@ impl CPU {
     }
     pub fn run(&mut self, program: Vec<u8>) {
         //TODO: run the program
-        todo!("run the program");
+        loop {
+            let mut counter = program.len();
+            let opcode = program[self.program_counter as usize];
+            let operator = program[self.program_counter as usize + 1];
+
+            match opcode {
+                0x86 => self.accumulator_a = operator,
+                _ => todo!("match opcode"),
+            }
+            self.program_counter += 1;
+            counter -= 2;
+            match counter {
+                0 => break,
+                _ => (),
+            }
+        }
     }
 }
 
@@ -90,5 +105,13 @@ mod tests {
         cpu.program_counter = 0xFFFF;
         cpu.reset();
         assert_eq!(cpu.program_counter, 0x0000);
+    }
+    #[test]
+    fn im_lda() {
+        let mut cpu = CPU::new();
+        let mut program = vec![0x86, 0xCA];
+        cpu.reset();
+        cpu.run(program);
+        assert_eq!(cpu.accumulator_a, 0xCA)
     }
 }
