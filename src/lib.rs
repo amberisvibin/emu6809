@@ -71,7 +71,8 @@ impl CPU {
             let operator = program[self.program_counter as usize + 1];
 
             match opcode {
-                0x86 => self.accumulator_a = operator,
+                0x12 => (), //nop
+                0x86 => self.accumulator_a = operator, //immediate lda
                 _ => todo!("match opcode"),
             }
             self.program_counter += 1;
@@ -81,37 +82,5 @@ impl CPU {
                 _ => (),
             }
         }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn new() {
-        let cpu = CPU::new();
-        assert_eq!(cpu.program_counter, 0x0000);
-    }
-    #[test]
-    fn set_pc() {
-        let mut cpu = CPU::new();
-        cpu.program_counter = 0xFFFF;
-        assert_eq!(cpu.program_counter, 0xFFFF);
-    }
-    #[test]
-    fn reset() {
-        let mut cpu = CPU::new();
-        cpu.program_counter = 0xFFFF;
-        cpu.reset();
-        assert_eq!(cpu.program_counter, 0x0000);
-    }
-    #[test]
-    fn im_lda() {
-        let mut cpu = CPU::new();
-        let mut program = vec![0x86, 0xCA];
-        cpu.reset();
-        cpu.run(program);
-        assert_eq!(cpu.accumulator_a, 0xCA)
     }
 }
